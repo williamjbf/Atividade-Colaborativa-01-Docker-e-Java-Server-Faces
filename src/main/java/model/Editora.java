@@ -1,9 +1,9 @@
 package model;
 
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Editora {
+    public static final String TABLE_NAME = "editora";
     private int codigo;
     private String localDeOrigem;
     private String nomeFantasia;

@@ -2,24 +2,21 @@ package controller;
 
 import model.Editora;
 import repository.EditoraRepository;
-import repository.implement.EditoraImplementEmMemoria;
+import repository.implement.EditoraImplementJDBC;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
 @Named
-@ViewScoped
+@RequestScoped
 public class EditoraController implements Serializable {
     private Editora editora = new Editora();
     private String busca = "";
     private List<Editora> editorasEncontrada;
-    private EditoraRepository repository = new EditoraImplementEmMemoria();
+    private EditoraRepository repository = new EditoraImplementJDBC();
 
     public String salvar() {
         repository.salvar(editora);
