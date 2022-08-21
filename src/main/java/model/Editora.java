@@ -8,6 +8,9 @@ public class Editora {
     private String localDeOrigem;
     private String nomeFantasia;
 
+    public Editora() {
+    }
+
     public Editora(int codigo, String localDeOrigem, String nomeFantasia) {
         this.codigo = codigo;
         this.localDeOrigem = localDeOrigem;

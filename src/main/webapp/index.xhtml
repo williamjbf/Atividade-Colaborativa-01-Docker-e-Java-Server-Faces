@@ -1,12 +1,27 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
     <h:head>
         <title>Livros JSF</title>
     </h:head>
     <h:body>
         <h1>Livraria's jsf</h1>
+        <h:form id="formulario">
+            <label for="localDeOrigem">Local de Origem: </label>
+            <input type="text" id="localDeOrigem"
+                   jsf:value="#{controladorDeEditoras.editora.localDeOrigem}"
+                   jsf:required="true"
+                   placeholder="Local de Origem" />
+            <label for="nomeFantasia">Nome Fantasia: </label>
+            <input type="text" id="nomeFantasia"
+                   jsf:value="#{controladorDeEditoras.editora.nomeFantasia}"
+                   placeholder="Nome fantasia" />
+            <input id="botao" class="btn" type="submit"
+                   jsf:action="#{controladorDeEditoras.salvar()}" jsf:value="++"/>
+        </h:form>
     </h:body>
     
 </html>

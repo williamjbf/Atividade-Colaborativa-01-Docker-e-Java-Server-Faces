@@ -9,6 +9,10 @@ public class Livro {
     private String titulo;
     private LocalDate dataDeLancamento;
 
+    public Livro() {
+
+    }
+
     public Livro(long id, String titulo, LocalDate dataDeLancamento) {
         this.id = id;
         this.titulo = titulo;
