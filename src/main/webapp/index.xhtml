@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf">
 
     <h:head>
@@ -12,15 +13,27 @@
         <h:form id="formulario">
             <label for="localDeOrigem">Local de Origem: </label>
             <input type="text" id="localDeOrigem"
-                   jsf:value="#{controladorDeEditoras.editora.localDeOrigem}"
+                   jsf:value="#{editoraController.editora.localDeOrigem}"
                    jsf:required="true"
                    placeholder="Local de Origem" />
             <label for="nomeFantasia">Nome Fantasia: </label>
             <input type="text" id="nomeFantasia"
-                   jsf:value="#{controladorDeEditoras.editora.nomeFantasia}"
+                   jsf:value="#{editoraController.editora.nomeFantasia}"
                    placeholder="Nome fantasia" />
             <input id="botao" class="btn" type="submit"
-                   jsf:action="#{controladorDeEditoras.salvar()}" jsf:value="++"/>
+                   jsf:action="#{editoraController.salvar()}" jsf:value="++"/>
+        </h:form>
+
+        <h2>Listagem de Editoras</h2>
+        <h:dataTable value="#{editoraController.listar()}" var="editora" >
+            <h:column>
+                <f:facet name="header">Local de Origem</f:facet>
+                #{editora.localDeOrigem}
+            </h:column>
+            <h:column>   #{editora.nomeFantasia}  </h:column>
+        </h:dataTable>
+        <h:form>
+            <h:commandButton value="nova Editora" action="criar.xhtml?faces-redirect=true" />
         </h:form>
     </h:body>
     
