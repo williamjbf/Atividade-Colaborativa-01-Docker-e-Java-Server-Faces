@@ -27,10 +27,17 @@
         <h2>Listagem de Editoras</h2>
         <h:dataTable value="#{editoraController.listar()}" var="editora" >
             <h:column>
+                <f:facet name="header">Codigo</f:facet>
+                #{editora.codigo}
+            </h:column>
+            <h:column>
                 <f:facet name="header">Local de Origem</f:facet>
                 #{editora.localDeOrigem}
             </h:column>
-            <h:column>   #{editora.nomeFantasia}  </h:column>
+            <h:column>
+                <f:facet name="header">Nome Fantasia</f:facet>
+                #{editora.nomeFantasia}
+            </h:column>
         </h:dataTable>
         <h:form>
             <h:commandButton value="nova Editora" action="criar.xhtml?faces-redirect=true" />

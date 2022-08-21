@@ -1,9 +1,9 @@
 package model;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Editora {
-
     private int codigo;
     private String localDeOrigem;
     private String nomeFantasia;
@@ -11,8 +11,7 @@ public class Editora {
     public Editora() {
     }
 
-    public Editora(int codigo, String localDeOrigem, String nomeFantasia) {
-        this.codigo = codigo;
+    public Editora(String localDeOrigem, String nomeFantasia) {
         this.localDeOrigem = localDeOrigem;
         this.nomeFantasia = nomeFantasia;
     }
