@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<h:head>
+    <title>LIVRO JSF</title>
+</h:head>
+<h:body>
+    <h1>Livraria's jsf</h1>
+    <h:form id="formulario">
+        <label for="titulo">Título: </label>
+        <input type="text" id="titulo"
+               jsf:value="#{livroController.livro.titulo}"
+               jsf:required="true"
+               placeholder="Titulo" />
+        <label for="dataDeLancamento">Data De Lançamento: </label>
+        <input type="date" id="dataDeLancamento"
+               jsf:value="#{livroController.livro.dataDeLancamento}"
+               placeholder="Data De Lançamento" />
+        <label for="codigoEditora">Código da Editora: </label>
+        <input type="text" id="codigoEditora"
+               jsf:value="#{livroController.livro.editora.codigo}"
+               placeholder="Código Editora" />
+        <input id="botao" class="btn" type="submit"
+               jsf:action="#{livroController.salvar()}" jsf:value="Salvar Livro"/>
+    </h:form>
+
+    <h2>Listagem de Editoras</h2>
+    <h:dataTable value="#{livroController.listar()}" var="livro" >
+        <h:column>
+            <f:facet name="header">Id</f:facet>
+            #{livro.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Título:</f:facet>
+            #{livro.titulo}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Data De Lançamento:</f:facet>
+            #{livro.dataDeLancamento}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Editora</f:facet>
+            #{livro.editora.nomeFantasia}
+        </h:column>
+    </h:dataTable>
+    <h:form>
+        <h:commandButton value="Limpar campos" action="criar.xhtml?faces-redirect=true" />
+    </h:form>
+</h:body>
+
+</html>
+

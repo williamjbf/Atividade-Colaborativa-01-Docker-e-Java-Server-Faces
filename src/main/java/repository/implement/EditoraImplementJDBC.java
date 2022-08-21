@@ -24,26 +24,27 @@ public class EditoraImplementJDBC implements EditoraRepository {
             Class.forName("org.postgresql.Driver");
             this.connection = DriverManager.getConnection(
                     "jdbc:postgresql://host-banco:5432/jsf-db",
-                    "postgres","postgres"
+                    "postgres", "postgres"
             );
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(EditoraImplementJDBC.class.getName()).log(Level.SEVERE,null,ex);
+            Logger.getLogger(EditoraImplementJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
+
     @Override
     public void salvar(Editora editora) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO "+Editora.TABLE_NAME+" (localDeOrigem, nomeFantasia) VALUES ( ?, ? );"
+                    "INSERT INTO " + Editora.TABLE_NAME + " (localDeOrigem, nomeFantasia) VALUES ( ?, ? );"
             );
             statement.setString(1, editora.getLocalDeOrigem());
             statement.setString(2, editora.getNomeFantasia());
 
             statement.executeUpdate();
 
-        }catch (SQLException ex){
-            Logger.getLogger(EditoraImplementJDBC.class.getName()).log(Level.SEVERE,null,ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(EditoraImplementJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -52,7 +53,7 @@ public class EditoraImplementJDBC implements EditoraRepository {
         try {
             List<Editora> lista = new ArrayList<>();
             ResultSet result = connection.prepareStatement(
-                    "SELECT * FROM " +Editora.TABLE_NAME
+                    "SELECT * FROM " + Editora.TABLE_NAME
             ).executeQuery();
             while (result.next()) {
                 Editora editora = new Editora();
@@ -64,6 +65,25 @@ public class EditoraImplementJDBC implements EditoraRepository {
             return lista;
         } catch (SQLException ex) {
             return Collections.EMPTY_LIST;
+        }
+    }
+
+    public Editora buscarEditora( Long id) {
+        try {
+            Editora editora = new Editora();
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM " + Editora.TABLE_NAME + " WHERE codigo = ?");
+            statement.setLong(1, id);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                editora.setCodigo(result.getInt("codigo"));
+                editora.setLocalDeOrigem(result.getString("localDeOrigem"));
+                editora.setNomeFantasia(result.getString("nomeFantasia"));
+            }
+            return editora;
+        }
+        catch(SQLException ex){
+            return new Editora();
         }
     }
 }

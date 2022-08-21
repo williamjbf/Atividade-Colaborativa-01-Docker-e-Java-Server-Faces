@@ -6,7 +6,7 @@
       xmlns:jsf="http://xmlns.jcp.org/jsf">
 
     <h:head>
-        <title>Livros JSF</title>
+        <title>EDITORA JSF</title>
     </h:head>
     <h:body>
         <h1>Livraria's jsf</h1>
@@ -21,7 +21,7 @@
                    jsf:value="#{editoraController.editora.nomeFantasia}"
                    placeholder="Nome fantasia" />
             <input id="botao" class="btn" type="submit"
-                   jsf:action="#{editoraController.salvar()}" jsf:value="++"/>
+                   jsf:action="#{editoraController.salvar()}" jsf:value="Salvar editora"/>
         </h:form>
 
         <h2>Listagem de Editoras</h2>
@@ -40,7 +40,7 @@
             </h:column>
         </h:dataTable>
         <h:form>
-            <h:commandButton value="nova Editora" action="criar.xhtml?faces-redirect=true" />
+            <h:commandButton value="Limpar campos" action="criar.xhtml?faces-redirect=true" />
         </h:form>
     </h:body>
     

@@ -20,4 +20,10 @@ public class EditoraImplementEmMemoria implements EditoraRepository {
     public List<Editora> listarEditora(){
         return editoraSalva;
     }
+
+    @Override
+    public Editora buscarEditora(Long id) {
+        return null;
+    }
 }
+

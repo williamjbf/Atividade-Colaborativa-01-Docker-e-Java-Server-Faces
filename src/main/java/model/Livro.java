@@ -5,18 +5,21 @@ import java.util.Objects;
 
 public class Livro {
 
+    public static final  String TABLE_NAME = "livro";
     private long id;
     private String titulo;
     private LocalDate dataDeLancamento;
+
+    private Editora editora;
 
     public Livro() {
 
     }
 
-    public Livro(long id, String titulo, LocalDate dataDeLancamento) {
-        this.id = id;
+    public Livro(String titulo, LocalDate dataDeLancamento, Editora editora) {
         this.titulo = titulo;
         this.dataDeLancamento = dataDeLancamento;
+        this.editora = editora;
     }
 
     public long getId() {
@@ -43,6 +46,9 @@ public class Livro {
         this.dataDeLancamento = dataDeLancamento;
     }
 
+    public Editora getEditora() {return editora; }
+
+    public void setEditora(Editora editora) {this.editora = editora;}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
