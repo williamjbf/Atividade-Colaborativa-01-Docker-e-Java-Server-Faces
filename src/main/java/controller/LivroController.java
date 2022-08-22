@@ -33,7 +33,7 @@ public class LivroController implements Serializable {
     private LivroRepository repository = new LivroImplementJDBC();
 
     public String salvar() {
-        if ((Integer)this.livro.getId() == null){
+        if (livro.equals(new Livro())){
             this.livro = repository.salvar(livro);
         }else {
             this.livro = repository.atualizar(livro);
