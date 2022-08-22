@@ -1,47 +1,120 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-    <h:head>
-        <title>EDITORA JSF</title>
-    </h:head>
-    <a href="faces/livro/livro.xhtml">listagem de editoras</a> <br />
+<h:head>
+    <h:outputStylesheet library="css" name="geral.css" />
 
-    <h:body>
-        <h1>Livraria's jsf</h1>
-        <h:form id="formulario">
-            <label for="localDeOrigem">Local de Origem: </label>
-            <input type="text" id="localDeOrigem"
-                   jsf:value="#{editoraController.editora.localDeOrigem}"
-                   jsf:required="true"
-                   placeholder="Local de Origem" />
-            <label for="nomeFantasia">Nome Fantasia: </label>
-            <input type="text" id="nomeFantasia"
-                   jsf:value="#{editoraController.editora.nomeFantasia}"
-                   placeholder="Nome fantasia" />
+    <style>
+    body{
+    margin: 0;
+    font-family: Mukta,sans-serif;
+
+    background: #efefef;
+}
+
+li{
+    list-style-type: none;
+    margin: 0 20px;
+}
+ul{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+nav{
+    display: flex;
+    justify-content: space-around;
+    background: 	#fd0;
+    border-bottom: 2px solid black;
+    width: 100wv;
+    color: #24282b;
+}
+
+.container{
+
+    padding: 40px 40px;
+}
+
+#formulario{
+    display: flex;
+    background: white;
+        padding: 1rem;
+        box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+        border-radius: 4px;
+        margin-bottom: 2rem;
+}
+
+
+</style>
+</h:head>
+
+
+
+<h:body>
+
+
+    <nav>
+        <h1>Livrariaaaaaaaaaaaaa's</h1>
+        <ul>
+            <li><a href="faces/livro/livro.xhtml">listagem de editoras</a> <br /></li>
+            <li>Editora</li>
+        </ul>
+    </nav>
+
+    <div class="card" >
+        <h:form id="formulario" style="diplay: flex; justify-content: space-around">
+            <h4>Local de Origem</h4>
+            <p:inputText id="localDeOrigem" value="#{editoraController.editora.localDeOrigem}" required="true" placeholder="Local de Origem"/>
+
+            <h4>Nome Fantasia</h4>
+            <p:inputText id="nomeFantasia" value="#{editoraController.editora.nomeFantasia}" placeholder="Nome fantasia" />
+
             <input id="botao" class="btn" type="submit"
-                   jsf:action="#{editoraController.salvar()}" jsf:value="Salvar editora"/>
+                   jsf:action="#{editoraController.salvar()}" jsf:value="Salvar"/>
         </h:form>
 
-        <h2>Listagem de Editoras</h2>
-        <h:dataTable value="#{editoraController.listar()}" var="editora" >
-            <h:column>
-                <f:facet name="header">Codigo</f:facet>
-                #{editora.codigo}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Local de Origem</f:facet>
-                #{editora.localDeOrigem}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Nome Fantasia</f:facet>
-                #{editora.nomeFantasia}
-            </h:column>
-        </h:dataTable>
-    </h:body>
-    
-</html>
+    </div>
 
+    <h:form id="form">
+        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
+
+        <div class="card">
+            <h2 style="text-align: center">Lista de Editoras</h2>
+            <p:dataTable id="basicDT" value="#{editoraController.listar()}" var="editora">
+                <p:column headerText="Code">
+                    <f:facet name="header">Codigo</f:facet>
+                    #{editora.codigo}
+                </p:column>
+
+                <p:column headerText="Name">
+                    <f:facet name="header">Local de Origem</f:facet>
+                    #{editora.localDeOrigem}
+                </p:column>
+
+                <p:column headerText="local de Origem">
+                    <f:facet name="header">Nome Fantasia</f:facet>
+                    #{editora.nomeFantasia}
+                </p:column>
+
+                <p:column headerText="Icons">
+                    <f:facet name="header">Nome Fantasia</f:facet>
+                    #{editora.nomeFantasia}
+                </p:column>
+
+                <p:column style="width:3rem;text-align: center">
+                    <p:commandButton update="" oncomplete="PF('productDialog').show()"
+                                     icon="pi pi-search" title="View">
+                        <f:setPropertyActionListener value="#{product}"
+                                                     target="#{dtSelectionView.selectedProduct}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </div>
+    </h:form>
+
+
+</h:body>
+</html>
