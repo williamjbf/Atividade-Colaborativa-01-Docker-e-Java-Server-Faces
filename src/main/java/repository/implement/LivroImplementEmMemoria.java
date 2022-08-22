@@ -13,13 +13,29 @@ public class LivroImplementEmMemoria implements LivroRepository {
 
     private List<Livro> livroSalvo = new ArrayList<>() ;
 
-    public void salvar(Livro livro){
+    public Livro salvar(Livro livro){
         Livro salvarLivro = new Livro(livro.getTitulo(), livro.getDataDeLancamento(), livro.getEditora());
         salvarLivro.setId(ID_GENERATOR.getAndIncrement());
         livroSalvo.add(salvarLivro);
+        return salvarLivro;
     }
     public List<Livro> listarLivro(){
         return livroSalvo;
+    }
+
+    @Override
+    public Livro buscarLivro(int id) {
+        return null;
+    }
+
+    @Override
+    public Livro atualizar(Livro livro) {
+        return null;
+    }
+
+    @Override
+    public void excluir(int id) {
+
     }
 }
 

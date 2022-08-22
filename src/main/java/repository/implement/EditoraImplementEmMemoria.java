@@ -22,7 +22,7 @@ public class EditoraImplementEmMemoria implements EditoraRepository {
     }
 
     @Override
-    public Editora buscarEditora(Long id) {
+    public Editora buscarEditora(int id) {
         return null;
     }
 }

@@ -6,6 +6,12 @@ import java.util.List;
 
 public interface LivroRepository {
 
-    void salvar(Livro livro);
+    Livro salvar(Livro livro);
     List<Livro> listarLivro();
+
+    Livro buscarLivro(int id);
+
+    Livro atualizar(Livro livro);
+
+    void excluir(int id);
 }

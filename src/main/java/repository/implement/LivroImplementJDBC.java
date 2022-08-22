@@ -35,19 +35,26 @@ public class LivroImplementJDBC implements LivroRepository {
 
     }
     @Override
-    public void salvar(Livro livro) {
+    public Livro salvar(Livro livro) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO "+"teste"+" (titulo, dataDeLancamento, idEditora) VALUES ( ?, ?, ? );"
+                    "INSERT INTO "+livro.TABLE_NAME+" (titulo, dataDeLancamento, idEditora) VALUES ( ?, ?, ? ) RETURNING id;"
             );
             statement.setString(1, livro.getTitulo());
-            statement.setDate(2, Date.valueOf(livro.getDataDeLancamento()));
+            statement.setDate(2, new java.sql.Date (livro.getDataDeLancamento().getTime()));
             statement.setInt(3, livro.getEditora().getCodigo());
 
-            statement.executeUpdate();
+            statement.executeQuery();
 
+            ResultSet result = statement.getGeneratedKeys();
+            if(result.next()){
+                int id = result.getInt(1);
+                return buscarLivro(id);
+            }
+            return new Livro();
         }catch (SQLException ex){
             Logger.getLogger(LivroImplementJDBC.class.getName()).log(Level.SEVERE,null,ex);
+            return new Livro();
         }
     }
     @Override
@@ -59,16 +66,74 @@ public class LivroImplementJDBC implements LivroRepository {
             ).executeQuery();
             while (result.next()) {
                 Livro livro = new Livro();
+                livro.setId(result.getInt("id"));
                 livro.setTitulo(result.getString("titulo"));
-                livro.setDataDeLancamento(result.getDate("dataDeLancamento").toLocalDate());
-                Editora editora = editoraRepository.buscarEditora(livro.getId());
+                livro.setDataDeLancamento(result.getDate("dataDeLancamento"));
+                Editora editora = editoraRepository.buscarEditora(result.getInt("ideditora"));
                 livro.setEditora(editora);
                 lista.add(livro);
             }
             return lista;
         } catch (SQLException ex) {
+            Logger.getLogger(LivroImplementJDBC.class.getName()).log(Level.SEVERE,null,ex);
             return Collections.EMPTY_LIST;
         }
 
+    }
+
+    public Livro buscarLivro(int id){
+        try {
+            Livro livro = new Livro();
+            PreparedStatement statement =connection.prepareStatement(
+                    "SELECT * FROM " + Livro.TABLE_NAME + " where id = ?;"
+            );
+            statement.setLong(1, id);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                livro.setId(result.getInt("id"));
+                livro.setTitulo(result.getString("titulo"));
+                livro.setDataDeLancamento(result.getDate("dataDeLancamento"));
+                Editora editora = editoraRepository.buscarEditora(livro.getId());
+                livro.setEditora(editora);
+            }
+            return livro;
+        } catch (SQLException ex) {
+            Logger.getLogger(LivroImplementJDBC.class.getName()).log(Level.SEVERE,null,ex);
+            return new Livro();
+        }
+    }
+
+    @Override
+    public Livro atualizar(Livro livro) {
+        try {
+        PreparedStatement statement = connection.prepareStatement(
+                "update "+Livro.TABLE_NAME+" set titulo = ?, datadelancamento = ?,ideditora = ? where id = ?;"
+        );
+        statement.setString(1,livro.getTitulo());
+        statement.setDate(2,new java.sql.Date (livro.getDataDeLancamento().getTime()));
+        statement.setInt(3,livro.getEditora().getCodigo());
+        statement.setInt(4,livro.getId());
+        statement.executeUpdate();
+
+        return livro;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(LivroImplementJDBC.class.getName()).log(Level.SEVERE,null,ex);
+            return new Livro();
+        }
+    }
+
+    @Override
+    public void excluir(int id) {
+        try {
+            PreparedStatement statement =connection.prepareStatement(
+                    "delete from " + Livro.TABLE_NAME + " where id = ?;"
+            );
+            statement.setInt(1, id);
+            statement.executeQuery();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(LivroImplementJDBC.class.getName()).log(Level.SEVERE,null,ex);
+        }
     }
 }

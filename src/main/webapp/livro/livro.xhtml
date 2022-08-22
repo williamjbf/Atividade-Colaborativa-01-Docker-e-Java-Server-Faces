@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>LIVRO JSF</title>
+</h:head>
+<h:body>
+    <h1>Livraria's jsf</h1>
+    <h:form id="formulario">
+        <h:panelGrid columns="2">
+            <f:facet name="header">
+                <h:outputText value="Cadastro De Livro"/>
+            </f:facet>
+            <h:outputLabel value="Id"/>
+            <h:inputText value="#{livroController.livro.id}" readonly="true"/>
+
+            <h:outputLabel value="Titulo"/>
+            <h:inputText value="#{livroController.livro.titulo}"/>
+
+            <h:outputLabel value="Data De Lancamento"/>
+            <h:inputText value="#{livroController.livro.dataDeLancamento}" >
+                <f:convertDateTime pattern="yyyy-MM-dd"/>
+            </h:inputText>
+
+            <h:outputLabel value="codigo editora:"/>
+            <h:inputText id="codigoEditora" value="#{livroController.livro.editora.codigo}"/>
+
+            <h:commandButton action="#{livroController.salvar()}" value="Salvar Livro" update=":formTable"/>
+            <h:commandButton action="#{livroController.limpar()}" value="Limpar" update=":formTable" />
+        </h:panelGrid>
+    </h:form>
+
+    <h2>Listagem de Editoras</h2>
+    <h:form id="formTable">
+        <p:dataTable value="#{livroController.listar()}" var="livro" rowKey="#{livro.id}"
+                     selection="#{livroController.livroSelecionado}" selectionMode="single">
+            <p:column>
+                <f:facet name="header">Id:</f:facet>
+                #{livro.id}
+            </p:column>
+            <p:column>
+                <f:facet name="header">Título:</f:facet>
+                <h:outputText value="#{livro.titulo}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Data De Lançamento:</f:facet>
+                <h:outputText value="#{livro.dataDeLancamento}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Editora</f:facet>
+                <h:outputText value="#{livro.editora.nomeFantasia}"/>
+            </p:column>
+            <p:column>
+                <p:commandButton action="#{livroController.editar(livro)}" value="editar" update=":formulario"/>
+            </p:column>
+            <p:column>
+                <p:commandButton action="#{livroController.excluir(livro)}" value="excluir" update=":formTable"/>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+
+</h:body>
+
+</html>
+

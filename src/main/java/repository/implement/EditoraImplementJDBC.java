@@ -68,7 +68,7 @@ public class EditoraImplementJDBC implements EditoraRepository {
         }
     }
 
-    public Editora buscarEditora( Long id) {
+    public Editora buscarEditora(int id) {
         try {
             Editora editora = new Editora();
             PreparedStatement statement = connection.prepareStatement(

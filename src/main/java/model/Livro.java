@@ -1,32 +1,32 @@
 package model;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 public class Livro {
 
     public static final  String TABLE_NAME = "livro";
-    private long id;
+    private int id;
     private String titulo;
-    private LocalDate dataDeLancamento;
+    private Date dataDeLancamento;
 
     private Editora editora;
 
     public Livro() {
-
+        this.editora = new Editora();
     }
 
-    public Livro(String titulo, LocalDate dataDeLancamento, Editora editora) {
+    public Livro(String titulo, Date dataDeLancamento, Editora editora) {
         this.titulo = titulo;
         this.dataDeLancamento = dataDeLancamento;
         this.editora = editora;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -38,11 +38,11 @@ public class Livro {
         this.titulo = titulo;
     }
 
-    public LocalDate getDataDeLancamento() {
+    public Date getDataDeLancamento() {
         return dataDeLancamento;
     }
 
-    public void setDataDeLancamento(LocalDate dataDeLancamento) {
+    public void setDataDeLancamento(Date dataDeLancamento) {
         this.dataDeLancamento = dataDeLancamento;
     }
 
@@ -62,4 +62,13 @@ public class Livro {
         return Objects.hash(id);
     }
 
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", dataDeLancamento=" + dataDeLancamento +
+                ", editora=" + editora +
+                '}';
+    }
 }

@@ -8,6 +8,8 @@
     <h:head>
         <title>EDITORA JSF</title>
     </h:head>
+    <a href="faces/livro/livro.xhtml">listagem de editoras</a> <br />
+
     <h:body>
         <h1>Livraria's jsf</h1>
         <h:form id="formulario">
@@ -39,9 +41,6 @@
                 #{editora.nomeFantasia}
             </h:column>
         </h:dataTable>
-        <h:form>
-            <h:commandButton value="Limpar campos" action="criar.xhtml?faces-redirect=true" />
-        </h:form>
     </h:body>
     
 </html>
