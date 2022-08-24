@@ -56,7 +56,7 @@ public class LivroController implements Serializable {
     }
 
     public void limpar() {
-        this.livro = null;
+        this.livro = new Livro();
     }
     @PostConstruct
     public void init(){

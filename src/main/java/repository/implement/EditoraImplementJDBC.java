@@ -33,7 +33,7 @@ public class EditoraImplementJDBC implements EditoraRepository {
     }
 
     @Override
-    public void salvar(Editora editora) {
+    public Editora salvar(Editora editora) {
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO " + Editora.TABLE_NAME + " (localDeOrigem, nomeFantasia) VALUES ( ?, ? );"
@@ -41,11 +41,18 @@ public class EditoraImplementJDBC implements EditoraRepository {
             statement.setString(1, editora.getLocalDeOrigem());
             statement.setString(2, editora.getNomeFantasia());
 
-            statement.executeUpdate();
+            statement.executeQuery();
+
+            ResultSet result = statement.getGeneratedKeys();
+            if(result.next()){
+                int codigo = result.getInt(1);
+                return buscarEditora(codigo);
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(EditoraImplementJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return new Editora();
     }
 
     @Override
@@ -86,4 +93,38 @@ public class EditoraImplementJDBC implements EditoraRepository {
             return new Editora();
         }
     }
+
+    @Override
+    public Editora atualizarEditora(Editora editora) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "update "+ Editora.TABLE_NAME+" set localdeorigem = ?, nomefantasia = ? where codigo = ?;"
+            );
+            statement.setString(2,editora.getLocalDeOrigem());
+            statement.setString(3,editora.getNomeFantasia());
+
+            statement.executeUpdate();
+
+            return editora;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EditoraImplementJDBC.class.getName()).log(Level.SEVERE,null,ex);
+            return new Editora();
+        }
+    }
+
+    @Override
+    public void excluirEditora(int codigo) {
+        try {
+            PreparedStatement statement =connection.prepareStatement(
+                    "delete from " + Editora.TABLE_NAME + " where codigo = ?;"
+            );
+            statement.setInt(1, codigo);
+            statement.executeQuery();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EditoraImplementJDBC.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }
+
 }

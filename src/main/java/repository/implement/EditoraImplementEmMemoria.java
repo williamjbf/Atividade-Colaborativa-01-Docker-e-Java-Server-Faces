@@ -12,10 +12,11 @@ public class EditoraImplementEmMemoria implements EditoraRepository {
 
     private List<Editora> editoraSalva = new ArrayList<>() ;
 
-    public void salvar(Editora editora){
+    public Editora salvar(Editora editora){
         Editora editoraSalvar = new Editora(editora.getLocalDeOrigem(),editora.getNomeFantasia());
         editoraSalvar.setCodigo(ID_GENERATOR.getAndIncrement());
         editoraSalva.add(editoraSalvar);
+        return editoraSalvar;
     }
     public List<Editora> listarEditora(){
         return editoraSalva;
@@ -25,5 +26,15 @@ public class EditoraImplementEmMemoria implements EditoraRepository {
     public Editora buscarEditora(int id) {
         return null;
     }
+
+    @Override
+    public Editora atualizarEditora(Editora editora) {
+        return null;
+    }
+
+    @Override
+    public void excluirEditora(int codigo) {
+    }
+
 }
 
