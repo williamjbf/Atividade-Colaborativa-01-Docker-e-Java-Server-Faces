@@ -34,20 +34,46 @@ nav{
 }
 
 .container{
-
     padding: 40px 40px;
 }
 
 #formulario{
     display: flex;
+    justify-content: space-around;
+    align-items: center;
     background: white;
-        padding: 1rem;
-        box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
-        border-radius: 4px;
-        margin-bottom: 2rem;
+    padding: 10px;
+    margin: 20px;
+    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+    border-radius: 4px;
+    padding: 10px;
 }
 
+span#search {
+    margin-bottom: 20px;
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#formulario:input {
+    padding: 0;
+}
 
+#form:j_idt12{
+    text-align: center;
+}
+
+input {
+    margin: 0 10px;
+}
+.card h4 {
+    margin: 0 10px;
+}
+#form {
+    margin: 0 10px;
+}
 </style>
 </h:head>
 
@@ -57,15 +83,15 @@ nav{
 
 
     <nav>
-        <h1>Livrariaaaaaaaaaaaaa's</h1>
+        <h1>Livraria's</h1>
         <ul>
-            <li><a href="faces/livro/livro.xhtml">listagem de editoras</a> <br /></li>
+            <li><a href="faces/livro/livro.xhtml">Listagem de Editoras</a> <br /></li>
             <li>Editora</li>
         </ul>
     </nav>
 
     <div class="card" >
-        <h:form id="formulario" style="diplay: flex; justify-content: space-around">
+        <h:form id="formulario">
             <h4>Local de Origem</h4>
             <p:inputText id="localDeOrigem" value="#{editoraController.editora.localDeOrigem}" required="true" placeholder="Local de Origem"/>
 
@@ -82,7 +108,13 @@ nav{
         <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
 
         <div class="card">
+
             <h2 style="text-align: center">Lista de Editoras</h2>
+            <span class="ui-input-icon-left" id="search">
+                <i class="pi pi-search" />
+                <p:inputText placeholder="Filtrar por nome" />
+            </span>
+
             <p:dataTable id="basicDT" value="#{editoraController.listar()}" var="editora">
                 <p:column headerText="Code">
                     <f:facet name="header">Codigo</f:facet>
@@ -95,11 +127,6 @@ nav{
                 </p:column>
 
                 <p:column headerText="local de Origem">
-                    <f:facet name="header">Nome Fantasia</f:facet>
-                    #{editora.nomeFantasia}
-                </p:column>
-
-                <p:column headerText="Icons">
                     <f:facet name="header">Nome Fantasia</f:facet>
                     #{editora.nomeFantasia}
                 </p:column>
