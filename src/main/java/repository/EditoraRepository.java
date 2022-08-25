@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface EditoraRepository {
 
-    void salvar(Editora editora);
+    Editora salvar(Editora editora);
     List<Editora> listarEditora();
     Editora buscarEditora(int id);
+    Editora atualizarEditora(Editora editora);
+    void excluirEditora(int codigo);
 }
