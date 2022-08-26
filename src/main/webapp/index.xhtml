@@ -5,76 +5,75 @@
       xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 <h:head>
-    <h:outputStylesheet library="css" name="geral.css" />
+    <!-- <h:outputStylesheet library="css" name="geral.css" /> -->
 
     <style>
-    body{
-    margin: 0;
-    font-family: Mukta,sans-serif;
+        body{
+            margin: 0;
+            font-family: Mukta,sans-serif;
+            background: #efefef;
+        }
 
-    background: #efefef;
-}
+        li{
+            list-style-type: none;
+            margin: 0 20px;
+        }
+        ul{
+            display:flex;
+            align-items: center;
+            justify-content: center;
+        }
+        nav{
+            display: flex;
+            justify-content: space-around;
+            background: 	#fd0;
+            border-bottom: 2px solid black;
+            width: 100wv;
+            color: #24282b;
+        }
 
-li{
-    list-style-type: none;
-    margin: 0 20px;
-}
-ul{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-}
-nav{
-    display: flex;
-    justify-content: space-around;
-    background: 	#fd0;
-    border-bottom: 2px solid black;
-    width: 100wv;
-    color: #24282b;
-}
+        .container{
+            padding: 40px 40px;
+        }
 
-.container{
-    padding: 40px 40px;
-}
+        #formulario{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: white;
+            padding: 10px;
+            margin: 20px;
+            box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+            border-radius: 4px;
+            padding: 10px;
+        }
 
-#formulario{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background: white;
-    padding: 10px;
-    margin: 20px;
-    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
-    border-radius: 4px;
-    padding: 10px;
-}
+        span#search {
+            margin-bottom: 20px;
+        }
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #formulario:input {
+            padding: 0;
+        }
 
-span#search {
-    margin-bottom: 20px;
-}
-.card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-#formulario:input {
-    padding: 0;
-}
+        #form:j_idt12{
+            text-align: center;
+        }
 
-#form:j_idt12{
-    text-align: center;
-}
-
-input {
-    margin: 0 10px;
-}
-.card h4 {
-    margin: 0 10px;
-}
-#form {
-    margin: 0 10px;
-}
-</style>
+        input {
+            margin: 0 10px;
+        }
+        .card h4 {
+            margin: 0 10px;
+        }
+        #form {
+            margin: 0 10px;
+        }
+    </style>
 </h:head>
 
 
@@ -85,13 +84,16 @@ input {
     <nav>
         <h1>Livraria's</h1>
         <ul>
-            <li><a href="faces/livro/livro.xhtml">Listagem de Editoras</a> <br /></li>
-            <li>Editora</li>
+            <li><a href="./faces/livro/livro.xhtml">Livros</a> <br /></li>
+            <li><a href="./faces/index.xhtml">Editora</a></li>
         </ul>
     </nav>
 
     <div class="card" >
         <h:form id="formulario">
+            <h4>ID</h4>
+            <p:inputText id="ID" value="00" disabled="true"/>
+
             <h4>Local de Origem</h4>
             <p:inputText id="localDeOrigem" value="#{editoraController.editora.localDeOrigem}" required="true" placeholder="Local de Origem"/>
 
@@ -131,12 +133,22 @@ input {
                     #{editora.nomeFantasia}
                 </p:column>
 
-                <p:column style="width:3rem;text-align: center">
-                    <p:commandButton update="" oncomplete="PF('productDialog').show()"
-                                     icon="pi pi-search" title="View">
-                        <f:setPropertyActionListener value="#{product}"
-                                                     target="#{dtSelectionView.selectedProduct}"/>
+                <p:column style="width: 6rem" >
+
+                    <p:commandButton icon="pi pi-pencil" update=""
+                                     oncomplete="PF('manageProductDialog').show()"
+                                     styleClass="edit-button rounded-button ui-button-success" process="@this">
+                        <f:setPropertyActionListener value="#{product}" target="" />
+                        <p:resetInput target="" />
                     </p:commandButton>
+
+
+
+                    <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                                     oncomplete="PF('deleteProductDialog').show()">
+                        <f:setPropertyActionListener value="#{product}" target="" />
+                    </p:commandButton>
+
                 </p:column>
             </p:dataTable>
         </div>

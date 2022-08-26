@@ -1,42 +1,137 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+
 
 <h:head>
     <title>LIVRO JSF</title>
+    <style>
+        body{
+            margin: 0;
+            font-family: Mukta,sans-serif;
+            background: #efefef;
+        }
+
+        li{
+            list-style-type: none;
+            margin: 0 20px;
+        }
+        ul{
+            display:flex;
+            align-items: center;
+            justify-content: center;
+        }
+        nav{
+            display: flex;
+            justify-content: space-around;
+            background: 	#fd0;
+            border-bottom: 2px solid black;
+            width: 100wv;
+            color: #24282b;
+        }
+
+        .container{
+            padding: 40px 40px;
+        }
+
+        #formulario{
+            width: 700px;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+            border-radius: 4px;
+            padding: 10px;
+            align-self: center;
+            margin: 20px auto;
+}
+        }
+        .card {
+            display: flex;
+            justify-content: center;
+        }
+
+        .card h4 {
+            margin: 0 10px;
+        }
+
+        #formTable {
+            margin: 0 10px;
+        }
+        input{
+            width: 200px !important;
+        }
+        .item{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+    </style>
+
+
 </h:head>
 <h:body>
-    <h1>Livraria's jsf</h1>
+    <nav>
+        <h1>Livraria's</h1>
+        <ul>
+            <li><a href="faces/livro/livro.xhtml">Livros</a> <br /></li>
+            <li><a href="faces/index.xhtml">Editora</a></li>
+        </ul>
+    </nav>
+
+
     <h:form id="formulario">
-        <h:panelGrid columns="2">
-            <f:facet name="header">
-                <h:outputText value="Cadastro De Livro"/>
-            </f:facet>
-            <h:outputLabel value="Id"/>
-            <h:inputText value="#{livroController.livro.id}" readonly="true"/>
+        <h3 style="text-align: center">Cadastro De Livro</h3>
+        <div class="card">
+            <div class="ui-fluid formgrid grid" style="margin: 0 140px;">
+                <div class="item">
+                    <h:outputLabel value="Id"/>
+                    <p:inputText value="#{livroController.livro.id}" readonly="true"/>
+                </div>
 
-            <h:outputLabel value="Titulo"/>
-            <h:inputText value="#{livroController.livro.titulo}"/>
+                <div class="item">
+                    <h:outputLabel value="Titulo"/>
+                    <p:inputText value="#{livroController.livro.titulo}"/>
+                </div>
 
-            <h:outputLabel value="Data De Lancamento"/>
-            <h:inputText value="#{livroController.livro.dataDeLancamento}" >
-                <f:convertDateTime pattern="yyyy-MM-dd"/>
-            </h:inputText>
 
-            <h:outputLabel value="codigo editora:"/>
-            <h:inputText id="codigoEditora" value="#{livroController.livro.editora.codigo}"/>
+                <div class="field col-12 md:col-4">
+                    <div class="item">
+                        <p:outputLabel for="@next" value="Date" />
+                        <p:inputMask id="date" value="#{maskView.date}" mask="99/99/9999" />
+                    </div>
+                </div>
 
-            <h:commandButton action="#{livroController.salvar()}" value="Salvar Livro" update=":formTable"/>
-            <h:commandButton action="#{livroController.limpar()}" value="Limpar" update=":formTable" />
-        </h:panelGrid>
+                <div class="item">
+                    <h:outputLabel value="codigo editora:"/>
+                    <p:inputText id="codigoEditora" value="#{livroController.livro.editora.codigo}"/>
+                </div>
+
+
+                <div>
+                    <h:commandButton action="#{livroController.salvar()}" value="Salvar Livro" update=":formTable"/>
+                    <h:commandButton action="#{livroController.limpar()}" value="Limpar" update=":formTable" />
+                </div>
+            </div>
+        </div>
+
     </h:form>
 
-    <h2>Listagem de Editoras</h2>
+
+
+
+
+
+
+
+
     <h:form id="formTable">
+        <h3 style="text-align: center">Listagem de Editoras</h3>
         <p:dataTable value="#{livroController.listar()}" var="livro" rowKey="#{livro.id}"
                      selection="#{livroController.livroSelecionado}" selectionMode="single">
             <p:column>
