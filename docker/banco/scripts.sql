@@ -8,5 +8,5 @@ create table if NOT EXISTS livro(
                                     titulo varchar(255) not null,
     dataDeLancamento date not null,
     idEditora int,
-    constraint fk_editora foreign key(idEditora) references editora(codigo)
+    constraint fk_editora foreign key(idEditora) references editora(codigo) on delete CASCADE on update CASCADE
     );

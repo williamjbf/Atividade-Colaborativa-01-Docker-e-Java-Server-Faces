@@ -11,4 +11,7 @@ public interface EditoraRepository {
     Editora buscarEditora(int id);
     Editora atualizarEditora(Editora editora);
     void excluirEditora(int codigo);
+
+    List<Editora> porLocalDeOrigem(String localDeOrigem);
+
 }

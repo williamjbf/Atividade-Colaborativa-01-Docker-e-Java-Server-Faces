@@ -47,7 +47,6 @@
             align-self: center;
             margin: 20px auto;
 }
-        }
         .card {
             display: flex;
             justify-content: center;
@@ -102,8 +101,11 @@
 
                 <div class="field col-12 md:col-4">
                     <div class="item">
-                        <p:outputLabel for="@next" value="Date" />
-                        <p:inputMask id="date" value="#{maskView.date}" mask="99/99/9999" />
+                        <h:outputLabel value="Data de Lancamento:" for="dataDeLancamento"/>
+                        <p:datePicker id="dataDeLancamento" value="#{livroController.livro.dataDeLancamento}"
+                                      pattern="dd/MM/yyyy">
+                            <f:convertDateTime pattern="dd/MM/yyyy" type="Date"/>
+                        </p:datePicker>
                     </div>
                 </div>
 

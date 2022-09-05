@@ -100,8 +100,9 @@ public class EditoraImplementJDBC implements EditoraRepository {
             PreparedStatement statement = connection.prepareStatement(
                     "update "+ Editora.TABLE_NAME+" set localdeorigem = ?, nomefantasia = ? where codigo = ?;"
             );
-            statement.setString(2,editora.getLocalDeOrigem());
-            statement.setString(3,editora.getNomeFantasia());
+            statement.setString(1,editora.getLocalDeOrigem());
+            statement.setString(2,editora.getNomeFantasia());
+            statement.setInt(3,editora.getCodigo());
 
             statement.executeUpdate();
 
@@ -124,6 +125,28 @@ public class EditoraImplementJDBC implements EditoraRepository {
 
         } catch (SQLException ex) {
             Logger.getLogger(EditoraImplementJDBC.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }
+
+    @Override
+    public List<Editora> porLocalDeOrigem(String localDeOrigem) {
+        try {
+            List<Editora> lista = new ArrayList<>();
+            PreparedStatement prepareStatement = this.dataSource.getConnection().prepareStatement(
+                    "SELECT * FROM editora WHERE localDeOrigem like ?"
+            );
+            prepareStatement.setString(1, localDeOrigem);
+            ResultSet result = prepareStatement.executeQuery();
+            while (result.next()) {
+               Editora editora = new Editora();
+                    editora.setCodigo(result.getInt("codigo"));
+                    editora.setLocalDeOrigem(result.getString("localDeOrigem"));
+                    editora.setNomeFantasia(result.getString("nomeFantasia"));
+                lista.add(editora);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            return Collections.EMPTY_LIST;
         }
     }
 

@@ -92,7 +92,7 @@
     <div class="card" >
         <h:form id="formulario">
             <h4>ID</h4>
-            <p:inputText id="ID" value="00" disabled="true"/>
+            <p:inputText id="ID" value="#{editoraController.editora.codigo}" disabled="true"/>
 
             <h4>Local de Origem</h4>
             <p:inputText id="localDeOrigem" value="#{editoraController.editora.localDeOrigem}" required="true" placeholder="Local de Origem"/>
@@ -101,21 +101,21 @@
             <p:inputText id="nomeFantasia" value="#{editoraController.editora.nomeFantasia}" placeholder="Nome fantasia" />
 
             <input id="botao" class="btn" type="submit"
-                   jsf:action="#{editoraController.salvar()}" jsf:value="Salvar"/>
+                   jsf:action="#{editoraController.salvarEditora()}" jsf:value="Salvar"/>
         </h:form>
 
     </div>
+
+    <h2 style="text-align: center">Lista de Editoras</h2>
+    <span class="ui-input-icon-left" id="search">
+                <i class="pi pi-search" />
+                <p:inputText placeholder="Filtrar por nome" />
+            </span>
 
     <h:form id="form">
         <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
 
         <div class="card">
-
-            <h2 style="text-align: center">Lista de Editoras</h2>
-            <span class="ui-input-icon-left" id="search">
-                <i class="pi pi-search" />
-                <p:inputText placeholder="Filtrar por nome" />
-            </span>
 
             <p:dataTable id="basicDT" value="#{editoraController.listar()}" var="editora">
                 <p:column headerText="Code">
@@ -135,19 +135,16 @@
 
                 <p:column style="width: 6rem" >
 
-                    <p:commandButton icon="pi pi-pencil" update=""
+                    <h:commandButton icon="pi pi-pencil" update=":formulario"
                                      oncomplete="PF('manageProductDialog').show()"
-                                     styleClass="edit-button rounded-button ui-button-success" process="@this">
-                        <f:setPropertyActionListener value="#{product}" target="" />
-                        <p:resetInput target="" />
-                    </p:commandButton>
+                                     styleClass="edit-button rounded-button ui-button-success"
+                                     action="#{editoraController.editar(editora)}" value="" >
+                    </h:commandButton>
 
-
-
-                    <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
-                                     oncomplete="PF('deleteProductDialog').show()">
-                        <f:setPropertyActionListener value="#{product}" target="" />
-                    </p:commandButton>
+                    <h:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                     oncomplete="PF('deleteProductDialog').show()"
+                                     action="#{editoraController.excluir(editora)}" value="" update=":form">
+                    </h:commandButton>
 
                 </p:column>
             </p:dataTable>

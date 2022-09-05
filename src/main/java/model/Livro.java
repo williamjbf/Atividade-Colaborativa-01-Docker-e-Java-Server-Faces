@@ -1,5 +1,7 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -42,6 +44,13 @@ public class Livro {
         return dataDeLancamento;
     }
 
+    public void setDataDeLancamento(String dataDeLancamento){
+        try {
+            this.dataDeLancamento = new SimpleDateFormat("dd/MM/yyyy").parse(dataDeLancamento);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void setDataDeLancamento(Date dataDeLancamento) {
         this.dataDeLancamento = dataDeLancamento;
     }

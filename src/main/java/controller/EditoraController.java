@@ -1,6 +1,7 @@
 package controller;
 
 import model.Editora;
+import model.Livro;
 import repository.EditoraRepository;
 import repository.implement.EditoraImplementJDBC;
 
@@ -9,6 +10,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Named
 @RequestScoped
@@ -18,6 +21,7 @@ public class EditoraController implements Serializable {
     private List<Editora> editorasEncontrada;
     private EditoraRepository repository = new EditoraImplementJDBC();
 
+
     public String salvar() {
         repository.salvar(editora);
         return "listar";
@@ -25,6 +29,31 @@ public class EditoraController implements Serializable {
 
     public List<Editora> listar(){
         return repository.listarEditora();
+    }
+    public String filtrar(){
+        if(null==busca || "".equals(busca.trim())){
+            this.editorasEncontrada = repository.listarEditora(); //lazy
+        }else{
+            this.editorasEncontrada = this.repository.porLocalDeOrigem(busca);
+        }
+        return null;
+    }
+    public String salvarEditora() {
+        if (editora.equals(new Editora())){
+            this.editora = repository.salvar(editora);
+        }else {
+            this.editora = repository.atualizarEditora(editora);
+        }
+        return "";
+    }
+    public String editar(Editora editora){
+        this.editora = editora;
+        return "";
+    }
+    public String excluir(Editora editora){
+        Logger.getLogger(LivroController.class.getName()).log(Level.SEVERE,null,editorasEncontrada);
+        repository.excluirEditora(editora.getCodigo());
+        return "";
     }
 
     @PostConstruct

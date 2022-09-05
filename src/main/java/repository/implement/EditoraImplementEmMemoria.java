@@ -36,5 +36,10 @@ public class EditoraImplementEmMemoria implements EditoraRepository {
     public void excluirEditora(int codigo) {
     }
 
+    @Override
+    public List<Editora> porLocalDeOrigem(String localDeOrigem) {
+        return null;
+    }
+
 }
 
