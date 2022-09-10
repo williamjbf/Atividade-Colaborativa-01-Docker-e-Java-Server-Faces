@@ -1,23 +1,13 @@
 package controller;
 
-import model.Editora;
 import model.Livro;
-import repository.EditoraRepository;
 import repository.LivroRepository;
-import repository.implement.EditoraImplementJDBC;
-import repository.implement.LivroImplementEmMemoria;
 import repository.implement.LivroImplementJDBC;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,11 +23,13 @@ public class LivroController implements Serializable {
     private LivroRepository repository = new LivroImplementJDBC();
 
     public String salvar() {
+        System.out.println(livro);
         if (livro.equals(new Livro())){
             this.livro = repository.salvar(livro);
         }else {
             this.livro = repository.atualizar(livro);
         }
+        System.out.println(livro);
         return "";
     }
     public List<Livro> listar(){
@@ -45,6 +37,7 @@ public class LivroController implements Serializable {
     }
 
     public String editar(Livro livro){
+        System.out.println(livro);
         this.livro = livro;
         return "";
     }

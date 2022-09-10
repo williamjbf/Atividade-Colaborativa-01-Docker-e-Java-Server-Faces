@@ -36,7 +36,7 @@ public class EditoraImplementJDBC implements EditoraRepository {
     public Editora salvar(Editora editora) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO " + Editora.TABLE_NAME + " (localDeOrigem, nomeFantasia) VALUES ( ?, ? );"
+                    "INSERT INTO " + Editora.TABLE_NAME + " (localDeOrigem, nomeFantasia) VALUES ( ?, ? ) RETURNING codigo;"
             );
             statement.setString(1, editora.getLocalDeOrigem());
             statement.setString(2, editora.getNomeFantasia());
@@ -48,6 +48,7 @@ public class EditoraImplementJDBC implements EditoraRepository {
                 int codigo = result.getInt(1);
                 return buscarEditora(codigo);
             }
+            return new Editora();
 
         } catch (SQLException ex) {
             Logger.getLogger(EditoraImplementJDBC.class.getName()).log(Level.SEVERE, null, ex);

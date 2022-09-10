@@ -54,4 +54,12 @@ public class Editora {
         return Objects.hash(codigo);
     }
 
+    @Override
+    public String toString() {
+        return "Editora{" +
+                "codigo=" + codigo +
+                ", localDeOrigem='" + localDeOrigem + '\'' +
+                ", nomeFantasia='" + nomeFantasia + '\'' +
+                '}';
+    }
 }

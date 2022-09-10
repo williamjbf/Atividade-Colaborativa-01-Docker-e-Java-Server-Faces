@@ -92,7 +92,7 @@
     <div class="card" >
         <h:form id="formulario">
             <h4>ID</h4>
-            <p:inputText id="ID" value="#{editoraController.editora.codigo}" disabled="true"/>
+            <p:inputText id="ID" value="#{editoraController.editora.codigo}" readonly="true"/>
 
             <h4>Local de Origem</h4>
             <p:inputText id="localDeOrigem" value="#{editoraController.editora.localDeOrigem}" required="true" placeholder="Local de Origem"/>
@@ -100,10 +100,12 @@
             <h4>Nome Fantasia</h4>
             <p:inputText id="nomeFantasia" value="#{editoraController.editora.nomeFantasia}" placeholder="Nome fantasia" />
 
-            <input id="botao" class="btn" type="submit"
-                   jsf:action="#{editoraController.salvarEditora()}" jsf:value="Salvar"/>
-        </h:form>
+            <div>
+                <h:commandButton action="#{editoraController.salvarEditora()}" value="Salvar Livro" update=":form"/>
+                <h:commandButton action="#{editoraController.limpar()}" value="Limpar" update=":formulario" />
+            </div>
 
+        </h:form>
     </div>
 
     <h2 style="text-align: center">Lista de Editoras</h2>
@@ -135,16 +137,16 @@
 
                 <p:column style="width: 6rem" >
 
-                    <h:commandButton icon="pi pi-pencil" update=":formulario"
+                    <p:commandButton icon="pi pi-pencil" update=":formulario"
                                      oncomplete="PF('manageProductDialog').show()"
                                      styleClass="edit-button rounded-button ui-button-success"
                                      action="#{editoraController.editar(editora)}" value="" >
-                    </h:commandButton>
+                    </p:commandButton>
 
-                    <h:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                    <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
                                      oncomplete="PF('deleteProductDialog').show()"
                                      action="#{editoraController.excluir(editora)}" value="" update=":form">
-                    </h:commandButton>
+                    </p:commandButton>
 
                 </p:column>
             </p:dataTable>

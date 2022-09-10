@@ -7,58 +7,60 @@ import repository.implement.EditoraImplementJDBC;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+@ViewScoped
 @Named
-@RequestScoped
 public class EditoraController implements Serializable {
     private Editora editora = new Editora();
     private String busca = "";
     private List<Editora> editorasEncontrada;
     private EditoraRepository repository = new EditoraImplementJDBC();
 
-
-    public String salvar() {
-        repository.salvar(editora);
-        return "listar";
-    }
-
     public List<Editora> listar(){
         return repository.listarEditora();
     }
+
     public String filtrar(){
         if(null==busca || "".equals(busca.trim())){
-            this.editorasEncontrada = repository.listarEditora(); //lazy
+            this.editorasEncontrada = repository.listarEditora();
         }else{
             this.editorasEncontrada = this.repository.porLocalDeOrigem(busca);
         }
         return null;
     }
     public String salvarEditora() {
+        System.out.println(editora);
         if (editora.equals(new Editora())){
             this.editora = repository.salvar(editora);
         }else {
             this.editora = repository.atualizarEditora(editora);
         }
+        System.out.println(editora);
         return "";
     }
     public String editar(Editora editora){
+        System.out.println(editora);
         this.editora = editora;
+        System.out.println(this.editora);
         return "";
     }
     public String excluir(Editora editora){
-        Logger.getLogger(LivroController.class.getName()).log(Level.SEVERE,null,editorasEncontrada);
+        System.out.println(editora);
         repository.excluirEditora(editora.getCodigo());
         return "";
     }
 
+    public void limpar() {
+        this.editora = new Editora();
+    }
+
     @PostConstruct
     public void init(){
-        this.editorasEncontrada = repository.listarEditora(); //lazy
+        this.editorasEncontrada = repository.listarEditora();
     }
     public Editora getEditora() {
         return editora;
